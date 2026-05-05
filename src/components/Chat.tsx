@@ -143,16 +143,6 @@ export default function Chat() {
 
     const userMessage: Message = { role: "user", content };
 
-    setConversations((prev) =>
-      prev.map((c) =>
-        c.id === convId
-          ? { ...c, messages: [...c.messages, userMessage] }
-          : c
-      )
-    );
-
-    setIsStreaming(true);
-
     const assistantMessage: Message = {
       role: "assistant",
       content: "",
@@ -166,6 +156,8 @@ export default function Chat() {
           : c
       )
     );
+
+    setIsStreaming(true);
 
     try {
       const currentConv = conversations.find((c) => c.id === convId);
