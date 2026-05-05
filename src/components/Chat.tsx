@@ -50,16 +50,14 @@ export default function Chat() {
   const [initialized, setInitialized] = useState(false);
 
   if (!initialized) {
-    if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("nvidia-chatbot-conversations");
-      if (saved) {
-        try {
-          const parsed = JSON.parse(saved);
-          setConversations(parsed);
-          if (parsed.length > 0) setActiveConvId(parsed[0].id);
-        } catch {
-          // ignore parse errors
-        }
+    const saved = localStorage.getItem("nvidia-chatbot-conversations");
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        setConversations(parsed);
+        if (parsed.length > 0) setActiveConvId(parsed[0].id);
+      } catch {
+        // ignore parse errors
       }
     }
     setInitialized(true);

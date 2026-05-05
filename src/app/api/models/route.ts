@@ -13,6 +13,14 @@ export async function GET() {
 
     if (response.ok) {
       const data = await response.json();
+      if (data.data) {
+        const seen = new Set<string>();
+        data.data = data.data.filter((m: { id: string }) => {
+          if (seen.has(m.id)) return false;
+          seen.add(m.id);
+          return true;
+        });
+      }
       return Response.json(data);
     }
 
