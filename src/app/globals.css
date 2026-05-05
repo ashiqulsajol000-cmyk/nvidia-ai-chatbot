@@ -31,6 +31,19 @@ body {
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
 
+html.light body {
+  background: #f9fafb;
+  color: #111827;
+}
+
+html.light * {
+  scrollbar-color: #d1d5db transparent;
+}
+
+html.light *::-webkit-scrollbar-thumb {
+  background-color: #d1d5db;
+}
+
 input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
@@ -38,6 +51,10 @@ input[type="range"] {
   border-radius: 2px;
   background: #3f3f46;
   outline: none;
+}
+
+html.light input[type="range"] {
+  background: #d1d5db;
 }
 
 input[type="range"]::-webkit-slider-thumb {

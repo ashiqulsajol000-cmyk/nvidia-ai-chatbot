@@ -5,11 +5,13 @@ import { useState, useRef, useEffect } from "react";
 interface ChatInputProps {
   onSend: (message: string) => void;
   disabled: boolean;
+  theme?: "dark" | "light";
 }
 
-export default function ChatInput({ onSend, disabled }: ChatInputProps) {
+export default function ChatInput({ onSend, disabled, theme = "dark" }: ChatInputProps) {
   const [message, setMessage] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const isDark = theme === "dark";
 
   useEffect(() => {
     if (textareaRef.current) {
@@ -36,7 +38,11 @@ export default function ChatInput({ onSend, disabled }: ChatInputProps) {
   };
 
   return (
-    <div className="flex items-end gap-3 bg-zinc-800 border border-zinc-600 rounded-2xl px-4 py-3 focus-within:border-emerald-500 focus-within:ring-1 focus-within:ring-emerald-500 transition-all">
+    <div className={`flex items-end gap-3 border rounded-2xl px-4 py-3 transition-all ${
+      isDark
+        ? "bg-zinc-800 border-zinc-600 focus-within:border-emerald-500 focus-within:ring-1 focus-within:ring-emerald-500"
+        : "bg-white border-gray-300 focus-within:border-emerald-500 focus-within:ring-1 focus-within:ring-emerald-500"
+    }`}>
       <textarea
         ref={textareaRef}
         value={message}
@@ -45,7 +51,11 @@ export default function ChatInput({ onSend, disabled }: ChatInputProps) {
         placeholder="Type your message... (Shift+Enter for new line)"
         disabled={disabled}
         rows={1}
-        className="flex-1 bg-transparent text-zinc-100 placeholder-zinc-500 resize-none focus:outline-none text-sm leading-relaxed disabled:opacity-50 max-h-[200px]"
+        className={`flex-1 bg-transparent resize-none focus:outline-none text-sm leading-relaxed disabled:opacity-50 max-h-[200px] ${
+          isDark
+            ? "text-zinc-100 placeholder-zinc-500"
+            : "text-gray-900 placeholder-gray-400"
+        }`}
       />
       <button
         onClick={handleSubmit}

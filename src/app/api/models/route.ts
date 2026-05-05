@@ -2,9 +2,11 @@ import { NVIDIA_BASE_URL, getApiKey, FREE_MODELS } from "@/lib/nvidia";
 
 export const dynamic = "force-dynamic";
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    const apiKey = getApiKey();
+    const { searchParams } = new URL(request.url);
+    const customKey = searchParams.get("apiKey") || undefined;
+    const apiKey = getApiKey(customKey);
     const response = await fetch(`${NVIDIA_BASE_URL}/models`, {
       headers: {
         Authorization: `Bearer ${apiKey}`,

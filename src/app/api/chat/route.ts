@@ -5,7 +5,7 @@ export const dynamic = "force-dynamic";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { messages, model, temperature = 0.7, max_tokens = 1024 } = body;
+    const { messages, model, temperature = 0.7, max_tokens = 1024, apiKey: customKey } = body;
 
     if (!messages || !model) {
       return Response.json(
@@ -14,7 +14,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const apiKey = getApiKey();
+    const apiKey = getApiKey(customKey);
 
     const response = await fetch(`${NVIDIA_BASE_URL}/chat/completions`, {
       method: "POST",
